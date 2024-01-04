@@ -11,6 +11,8 @@ function Main({props}) {
     const [hide, setHide] = useState("hidden")
     const [time, setTime] = useState(props[0].Time)
     const [penalty, setPenalty] = useState(0)
+    const [complete, setComplete] = useState(false)
+    
 
 
     useEffect( () => {
@@ -21,12 +23,17 @@ function Main({props}) {
                 })
             }
             if(time == 0){
-                setQ( q + 1)
-                setTime(
-                    props[q + 1].Time
-                )
-                SetCorrect(false)
-                setPenalty(0)
+                if(q+1 <= 13){
+                    setQ( q + 1)
+                    setTime(
+                        props[q + 1].Time
+                    )
+                    SetCorrect(false)
+                    setPenalty(0)
+                }
+                else{
+                    setComplete(true)
+                }
             }
         }, 1000)
     })
@@ -60,7 +67,14 @@ function Main({props}) {
         }
     }
 
+    if (complete){
+        return <div className='w-full p-8 h-screen bg-gray-900 text-white flex justify-center items-center'>Challenge Complete!</div>
+    }
+
+    else{
+
     return (
+        
         <div className='w-full p-8 h-screen bg-gray-900 text-white'> 
             <div className='grid grid-cols-7 gap-x-4 '>        
             <div className='col-start-1'>
@@ -88,8 +102,8 @@ function Main({props}) {
             <div className=' col-span-1'>
                 <div className='mx-8 p-1 rounded-lg text-center bg-gray-800 text-white'>{props[q].Num}</div>
             </div>
-            <div className='text-white col-span-7'>
-                {props[q].Text}
+            <div className='text-white col-span-7 '>
+                <p className='text-wrap'>{props[q].Text}</p>
             </div>
         
         </div>
@@ -117,7 +131,8 @@ function Main({props}) {
 
 
     </div>
-    )
+        )
+}
 }
 
 export default Main
