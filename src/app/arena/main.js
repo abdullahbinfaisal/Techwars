@@ -23,7 +23,7 @@ function Main({props}) {
                 })
             }
             if(time == 0){
-                if(q+1 <= 13){
+                if(q+1 <= 12){
                     setQ( q + 1)
                     setTime(
                         props[q + 1].Time
