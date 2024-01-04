@@ -1,10 +1,8 @@
 import React from 'react'
-import System from './system'
 import Image from 'next/image'
 import Time from './time'
 import Answer from './answer'
 import Main from './main'
-
 
 
 import { promises as fs } from 'fs';

@@ -1,7 +1,9 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
-import System from './system'
+import {collection, addDoc} from 'firebase/firestore'
+import { useSearchParams } from 'next/navigation'
+import { db } from '../../../utils/firebase'
 
 function Main({props}) {
 
@@ -12,8 +14,12 @@ function Main({props}) {
     const [time, setTime] = useState(props[0].Time)
     const [penalty, setPenalty] = useState(0)
     const [complete, setComplete] = useState(false)
-    
+    const [score, setScore] = useState(0)
+    const [docID, setDocID] = useState("")
 
+    const teamID = useSearchParams()
+    const userID = teamID.get('ID')
+   
 
     useEffect( () => {
         setTimeout(()=>{
@@ -55,11 +61,21 @@ function Main({props}) {
     }
 
     
-    const SubmitHandler = (e) => {
+    const SubmitHandler = async (e) => {
         e.preventDefault()
-        console.log(e)
+        console.log(e) 
         if (ans == props[q].Answer){
             SetCorrect(true)
+            setScore( score + (time - (15*penalty)))
+            
+            const colRef = collection(db, 'Users')
+            await addDoc(colRef, {
+                "Score": score,
+                "Team ID": userID
+            }).then(function(docRef){
+                setDocID(docRef.id);
+                console.log(docRef.id)
+            })
         }
         else{
             setPenalty(penalty + 1)
@@ -93,7 +109,9 @@ function Main({props}) {
             </div>
 
             <div className='col-start-7 flex items-center'>
-                <System></System>   
+                <div className="flex items-center">
+                    {userID}
+                </div>  
             </div>
         </div>
 
