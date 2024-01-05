@@ -13,8 +13,8 @@ export default function Home() {
   const [dummy, setDummy] = useState(false)
   const [valid, setValid] = useState(false)
 
-  const Hrs = 12
-  const Mins = 57
+  const Hrs = 13
+  const Mins = 0
     
   var date = new Date()
 
