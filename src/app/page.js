@@ -14,7 +14,7 @@ export default function Home() {
   const [valid, setValid] = useState(false)
 
   const Hrs = 13
-  const Mins = 4
+  const Mins = 20
     
   var date = new Date()
 
@@ -22,7 +22,7 @@ export default function Home() {
         setTimeout(
             () => {
                 console.log(date.getMinutes())
-                if(date.getHours() == Hrs && (date.getMinutes() == Mins || date.getMinutes() - 1 == Mins) ){
+                if(date.getHours() == Hrs && (date.getMinutes() >= Mins) ){
                     setValid(true)
                 }
                 else{
