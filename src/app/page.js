@@ -14,7 +14,7 @@ export default function Home() {
   const [valid, setValid] = useState(false)
 
   const Hrs = 13
-  const Mins = 0
+  const Mins = 4
     
   var date = new Date()
 

@@ -25,9 +25,7 @@ function Main({props}) {
     useEffect( () => {
         setTimeout(()=>{
             if(time != 0){
-                setTime(()=>{
-                    setTime(prevTime => prevTime - 1)
-                })
+                setTime(time - 1)    
             }
             if(time == 0){
                 if(q+1 <= 12){
