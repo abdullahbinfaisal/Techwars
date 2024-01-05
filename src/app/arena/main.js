@@ -26,7 +26,7 @@ function Main({props}) {
         setTimeout(()=>{
             if(time != 0){
                 setTime(()=>{
-                    setTime(time - 1)
+                    setTime(prevTime => prevTime - 1)
                 })
             }
             if(time == 0){
