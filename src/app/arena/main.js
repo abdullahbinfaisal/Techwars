@@ -14,9 +14,10 @@ function Main({props}) {
     const [time, setTime] = useState(props[0].Time)
     const [penalty, setPenalty] = useState(0)
     const [complete, setComplete] = useState(false)
-    const [score, setScore] = useState(0)
-    const [docID, setDocID] = useState("")
-
+    
+    let docID = "";
+    let score = 0
+    let check = false
     const teamID = useSearchParams()
     const userID = teamID.get('ID')
    
@@ -65,19 +66,18 @@ function Main({props}) {
         e.preventDefault()
         console.log(e) 
         if (ans == props[q].Answer){
-            SetCorrect(true)
-            setScore( score + (time - (15*penalty)))
             
+            score = (time - (15*penalty));
+            SetCorrect(true)
             const colRef = collection(db, 'Users')
             await addDoc(colRef, {
-                "Score": score,
-                "Team ID": userID
-            }).then(function(docRef){
-                setDocID(docRef.id);
-                console.log(docRef.id)
-            })
+                    "Score": score,
+                    "Team ID": userID,
+                    "Question": props[q].Num
+                })
         }
-        else{
+        else
+        {
             setPenalty(penalty + 1)
             setHide("my-2")
         }
